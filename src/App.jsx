@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
@@ -32,7 +32,7 @@ export default function App() {
       <CartProvider>
         <WishlistProvider>
           <FilterProvider>
-            <BrowserRouter>
+            <HashRouter>
               <ScrollToTop />
               <div className="min-h-screen flex flex-col bg-[#0a0d14] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
                 <Navbar />
@@ -51,7 +51,7 @@ export default function App() {
                 <Footer />
                 <ToastContainer />
               </div>
-            </BrowserRouter>
+            </HashRouter>
           </FilterProvider>
         </WishlistProvider>
       </CartProvider>
