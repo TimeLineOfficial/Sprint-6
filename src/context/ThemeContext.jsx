@@ -7,9 +7,9 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setThemeState] = useState(() => {
     try {
       const saved = localStorage.getItem(THEME_STORAGE_KEY);
-      return saved || 'cyberpunk';
+      return saved || 'light';
     } catch {
-      return 'cyberpunk';
+      return 'light';
     }
   });
 
@@ -17,15 +17,12 @@ export const ThemeProvider = ({ children }) => {
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme);
       const root = document.documentElement;
-      root.classList.remove('theme-cyberpunk', 'theme-matrix', 'theme-solar');
-      root.classList.add(`theme-${theme}`);
+      root.classList.remove('dark', 'solar', 'theme-cyberpunk', 'theme-matrix', 'theme-solar');
 
-      if (theme === 'solar') {
-        root.classList.remove('dark');
-        root.classList.add('light');
-      } else {
-        root.classList.remove('light');
+      if (theme === 'dark') {
         root.classList.add('dark');
+      } else if (theme === 'solar') {
+        root.classList.add('dark', 'solar', 'theme-solar');
       }
     } catch (e) {
       console.error("Theme storage update failed", e);
@@ -34,9 +31,9 @@ export const ThemeProvider = ({ children }) => {
 
   const cycleTheme = () => {
     setThemeState((prev) => {
-      if (prev === 'cyberpunk') return 'matrix';
-      if (prev === 'matrix') return 'solar';
-      return 'cyberpunk';
+      if (prev === 'light') return 'dark';
+      if (prev === 'dark') return 'solar';
+      return 'light';
     });
   };
 

@@ -16,6 +16,8 @@ import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Wishlist } from './pages/Wishlist';
 import { OrderSuccess } from './pages/OrderSuccess';
+import { HireWorkers } from './pages/HireWorkers';
+import { GadgetRepair } from './pages/GadgetRepair';
 import { NotFound } from './pages/NotFound';
 
 // Helper component to reset scroll position on route change
@@ -45,6 +47,8 @@ export default function App() {
                       <Route path="/product/:id" element={<ProductDetail />} />
                       <Route path="/cart" element={<Cart />} />
                       <Route path="/checkout" element={<Checkout />} />
+                      <Route path="/hire-workers" element={<HireWorkers />} />
+                      <Route path="/repair-services" element={<GadgetRepair />} />
                       <Route path="/wishlist" element={<Wishlist />} />
                       <Route path="/order-success" element={<OrderSuccess />} />
                       <Route path="*" element={<NotFound />} />
