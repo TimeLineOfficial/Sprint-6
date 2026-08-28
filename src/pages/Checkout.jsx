@@ -18,7 +18,11 @@ import {
   Building,
   Smartphone,
   Wallet,
-  Banknote
+  Banknote,
+  Wrench,
+  Clock,
+  Calendar,
+  Sparkles
 } from 'lucide-react';
 
 const HISTORY_STORAGE_KEY = 'NEXUS_CHECKOUT_HISTORY_V1';
@@ -35,11 +39,10 @@ export const Checkout = () => {
     isCartEmpty
   } = useCartOperations();
 
-  const [step, setStep] = useState(1); // 1: Address, 2: Payment
-  const [paymentMethod, setPaymentMethod] = useState('card'); // 'card', 'upi', 'cod', 'paypal', 'crypto', 'netbanking'
+  const [step, setStep] = useState(1);
+  const [paymentMethod, setPaymentMethod] = useState('card');
   const [copiedCrypto, setCopiedCrypto] = useState(false);
 
-  // 1. EMPTY initial form fields
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -47,7 +50,6 @@ export const Checkout = () => {
     city: '',
     postalCode: '',
     country: 'United States / India / International',
-    // Payment Details
     cardNumber: '',
     cardExpiry: '',
     cardCvc: '',
@@ -58,7 +60,6 @@ export const Checkout = () => {
     bankUserId: ''
   });
 
-  // 2. Load last 4 saved options per column from LocalStorage
   const [fieldHistory, setFieldHistory] = useState(() => {
     try {
       const saved = localStorage.getItem(HISTORY_STORAGE_KEY);
@@ -87,7 +88,7 @@ export const Checkout = () => {
     setFieldHistory((prev) => {
       const existing = prev[fieldName] || [];
       const filtered = existing.filter((item) => item.toLowerCase() !== cleanValue.toLowerCase());
-      const updated = [cleanValue, ...filtered].slice(0, 4); // Keep last 4 unique options
+      const updated = [cleanValue, ...filtered].slice(0, 4);
       const newHistory = { ...prev, [fieldName]: updated };
       try {
         localStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(newHistory));
@@ -117,7 +118,6 @@ export const Checkout = () => {
   const handleCompleteOrder = (e) => {
     e.preventDefault();
 
-    // Save fields to local history
     ['fullName', 'email', 'address', 'city', 'postalCode'].forEach((key) => {
       saveFieldToHistory(key, formData[key]);
     });
@@ -141,10 +141,12 @@ export const Checkout = () => {
     setTimeout(() => setCopiedCrypto(false), 2000);
   };
 
+  const hasServices = cartItems.some(item => item.product.isService);
+
   if (isCartEmpty) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center space-y-4">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">No Items in Cart</h2>
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">No Items or Services in Cart</h2>
         <button
           onClick={() => navigate('/catalog')}
           className="px-5 py-2.5 rounded-lg bg-blue-600 text-white font-bold text-xs"
@@ -163,7 +165,7 @@ export const Checkout = () => {
           <div className={`w-7 h-7 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-blue-600 text-white' : 'bg-slate-200 text-slate-600'}`}>
             1
           </div>
-          <span>1. DELIVERY ADDRESS</span>
+          <span>1. SERVICE &amp; SHIPPING ADDRESS</span>
         </div>
         <div className="h-0.5 w-16 bg-slate-200 dark:bg-slate-700" />
         <div className={`flex items-center space-x-2 ${step >= 2 ? 'text-blue-600 font-bold' : 'text-slate-400'}`}>
@@ -181,12 +183,19 @@ export const Checkout = () => {
             <div className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
               <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-3">
                 <h2 className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-blue-600" /> Step 1: Delivery Address Credentials
+                  <Truck className="w-4 h-4 text-blue-600" /> Step 1: Doorstep Delivery &amp; Service Address
                 </h2>
                 <span className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
                   <History className="w-3 h-3" /> Auto-Save Active
                 </span>
               </div>
+
+              {hasServices && (
+                <div className="p-3 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-lg text-xs text-emerald-800 dark:text-emerald-300 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                  <span>Your cart includes Urban Company Services. Certified technician will arrive at the address below.</span>
+                </div>
+              )}
 
               <div className="space-y-4 text-xs">
                 {/* Field: Full Name */}
@@ -201,7 +210,6 @@ export const Checkout = () => {
                     placeholder="Enter recipient full name..."
                     className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg px-3.5 py-2.5 text-slate-900 dark:text-white placeholder-slate-400 focus:border-blue-600 focus:outline-none"
                   />
-                  {/* Suggestion Chips */}
                   {fieldHistory.fullName && fieldHistory.fullName.length > 0 && (
                     <div className="flex flex-wrap items-center gap-1.5 mt-2">
                       <span className="text-[10px] text-slate-400 flex items-center gap-1"><History className="w-2.5 h-2.5" /> Saved:</span>
@@ -344,12 +352,12 @@ export const Checkout = () => {
                 }}
                 className="w-full py-3.5 rounded-lg bg-blue-600 text-white font-bold text-xs uppercase flex items-center justify-center space-x-2 hover:bg-blue-700 shadow-sm"
               >
-                <span>DELIVER TO THIS ADDRESS</span>
+                <span>CONFIRM ADDRESS &amp; PROCEED TO PAYMENT</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           ) : (
-            /* Step 2: International & Indian Payment Options */
+            /* Step 2: Payment Options */
             <div className="p-6 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-6">
               <h2 className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2 border-b border-slate-200 dark:border-slate-700 pb-3">
                 <Globe className="w-4 h-4 text-blue-600" /> Step 2: Select Payment Method
@@ -393,7 +401,7 @@ export const Checkout = () => {
                   }`}
                 >
                   <Banknote className="w-5 h-5 text-amber-600" />
-                  <span>Cash on Delivery</span>
+                  <span>Pay After Service / COD</span>
                 </button>
 
                 <button
@@ -493,57 +501,8 @@ export const Checkout = () => {
 
               {paymentMethod === 'cod' && (
                 <div className="p-4 rounded-lg bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 space-y-1 text-xs text-amber-900 dark:text-amber-300">
-                  <div className="font-bold">Cash on Delivery Available</div>
-                  <p className="text-[11px]">Pay via cash or UPI QR scanner upon doorstep delivery.</p>
-                </div>
-              )}
-
-              {paymentMethod === 'paypal' && (
-                <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 space-y-2 text-xs">
-                  <label className="block font-bold text-blue-900 dark:text-blue-200">PayPal Account Email</label>
-                  <input
-                    type="email"
-                    name="paypalEmail"
-                    value={formData.paypalEmail}
-                    onChange={handleInputChange}
-                    placeholder="paypal.user@domain.com"
-                    className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2"
-                  />
-                </div>
-              )}
-
-              {paymentMethod === 'crypto' && (
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 space-y-2 text-xs">
-                  <div className="font-bold text-slate-900 dark:text-white">Bitcoin &amp; Crypto Payment</div>
-                  <div className="flex items-center gap-2 bg-white dark:bg-slate-800 p-2 rounded-lg border border-slate-300 dark:border-slate-700">
-                    <span className="font-mono text-[11px] truncate flex-1">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</span>
-                    <button
-                      type="button"
-                      onClick={() => copyToClipboard('bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh')}
-                      className="px-2 py-1 bg-slate-200 dark:bg-slate-700 rounded text-xs"
-                    >
-                      {copiedCrypto ? 'Copied' : 'Copy'}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {paymentMethod === 'netbanking' && (
-                <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 space-y-2 text-xs">
-                  <label className="block font-bold text-slate-900 dark:text-white">Select Bank</label>
-                  <select
-                    name="bankName"
-                    value={formData.bankName}
-                    onChange={handleInputChange}
-                    className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-slate-900 dark:text-white"
-                  >
-                    <option value="HDFC Bank">HDFC Bank</option>
-                    <option value="State Bank of India">State Bank of India (SBI)</option>
-                    <option value="ICICI Bank">ICICI Bank</option>
-                    <option value="Axis Bank">Axis Bank</option>
-                    <option value="HSBC Bank">HSBC International</option>
-                    <option value="Chase Bank">Chase Bank (USA)</option>
-                  </select>
+                  <div className="font-bold">Pay After Service / Cash on Delivery</div>
+                  <p className="text-[11px]">Pay technician or delivery agent via cash/UPI after service completion.</p>
                 </div>
               )}
 
@@ -572,17 +531,23 @@ export const Checkout = () => {
         <div className="lg:col-span-5 space-y-6">
           <div className="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
             <h3 className="font-bold text-sm text-slate-900 dark:text-white uppercase tracking-wider border-b border-slate-200 dark:border-slate-700 pb-3">
-              Order Summary ({cartItems.length} items)
+              Order &amp; Service Summary ({cartItems.length} items)
             </h3>
 
             <div className="space-y-3 max-h-64 overflow-y-auto custom-scrollbar pr-1">
               {cartItems.map(({ product, quantity }) => (
-                <div key={product.id} className="flex items-center justify-between text-xs">
+                <div key={product.id} className="flex items-center justify-between text-xs border-b border-slate-100 dark:border-slate-800 pb-2">
                   <div className="flex items-center space-x-3 truncate">
                     <img src={product.image} alt={product.name} className="w-10 h-10 object-contain rounded bg-slate-50 dark:bg-slate-900 p-1 flex-shrink-0" />
                     <div className="truncate">
                       <div className="font-semibold text-slate-900 dark:text-white truncate">{product.name}</div>
-                      <div className="text-slate-500 text-[11px]">Qty: {quantity}</div>
+                      {product.isService ? (
+                        <div className="text-emerald-600 font-medium text-[10px] flex items-center gap-1">
+                          <Clock className="w-3 h-3" /> Slot: {product.bookingDay || 'Tomorrow'} at {product.bookingSlot || '11:30 AM'}
+                        </div>
+                      ) : (
+                        <div className="text-slate-500 text-[11px]">Qty: {quantity}</div>
+                      )}
                     </div>
                   </div>
                   <div className="font-bold text-slate-900 dark:text-white ml-2">
@@ -598,7 +563,7 @@ export const Checkout = () => {
                 <span className="font-semibold text-slate-900 dark:text-white">{formattedSubtotal}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-400">
-                <span>Tax &amp; Express Shipping</span>
+                <span>Tax &amp; Service Inspection Fee</span>
                 <span className="font-semibold text-slate-900 dark:text-white">{formattedTax}</span>
               </div>
               <div className="flex justify-between text-slate-900 dark:text-white font-extrabold text-sm pt-2 border-t border-slate-200 dark:border-slate-700">
