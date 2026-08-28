@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [react()],
   base: './', // Ensures relative asset paths for GitHub Pages subfolder deployment
   build: {
-    outDir: 'dist',
+    outDir: 'docs',
     emptyOutDir: true,
   },
   server: {

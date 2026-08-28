@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "npm run build && git add . && git push origin main"
+    "deploy": "npm run build && git add . && git push origin main --force"
   },
   "dependencies": {
     "canvas-confetti": "^1.9.3",
