@@ -7,35 +7,22 @@ export default {
   theme: {
     extend: {
       colors: {
-        cyber: {
-          bg: '#0a0d14',
-          card: '#121824',
-          cardHover: '#182030',
-          border: '#1e293b',
-          cyan: '#00f0ff',
-          neon: '#7000ff',
-          pink: '#ff007f',
-          gold: '#ffb703',
-          green: '#00ff88'
+        brand: {
+          blue: '#1e40af',
+          blueHover: '#1d4ed8',
+          lightBlue: '#eff6ff',
+          orange: '#f97316',
+          orangeHover: '#ea580c',
+          amber: '#d97706',
+          green: '#059669',
+          bg: '#f8fafc',
+          card: '#ffffff',
+          border: '#e2e8f0',
+          dark: '#0f172a'
         }
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace']
-      },
-      animation: {
-        'pulse-glow': 'pulseGlow 2s infinite alternate',
-        'float': 'float 3s ease-in-out infinite'
-      },
-      keyframes: {
-        pulseGlow: {
-          '0%': { boxShadow: '0 0 15px rgba(0, 240, 255, 0.2)' },
-          '100%': { boxShadow: '0 0 30px rgba(0, 240, 255, 0.6)' }
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-8px)' }
-        }
+        sans: ['Inter', 'system-ui', 'sans-serif'],
       }
     },
   },

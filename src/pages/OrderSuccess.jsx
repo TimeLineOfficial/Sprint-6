@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, Link, Navigate } from 'react-router-dom';
-import { CheckCircle2, Truck, Cpu, ShieldCheck, ArrowRight, PackageCheck, Zap } from 'lucide-react';
+import { CheckCircle2, Truck, ShieldCheck, ArrowRight, PackageCheck, Zap } from 'lucide-react';
 
 export const OrderSuccess = () => {
   const location = useLocation();
@@ -10,66 +10,66 @@ export const OrderSuccess = () => {
     return <Navigate to="/" replace />;
   }
 
-  const { orderId, details } = state;
+  const { orderId, details, paymentMethod } = state;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-16 space-y-8">
-      <div className="bg-cyber-card border border-cyan-500/40 rounded-3xl p-8 sm:p-12 glass-card text-center space-y-6 shadow-[0_0_50px_rgba(0,240,255,0.15)]">
-        <div className="w-20 h-20 rounded-3xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 flex items-center justify-center mx-auto animate-bounce">
+      <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-8 sm:p-12 text-center space-y-6 shadow-md">
+        <div className="w-20 h-20 rounded-full bg-emerald-100 dark:bg-emerald-950 border border-emerald-300 dark:border-emerald-700 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-10 h-10" />
         </div>
 
         <div className="space-y-2">
-          <span className="text-xs font-mono text-cyan-400 uppercase tracking-widest">
-            // AUTHORISATION CONFIRMED &amp; DISPATCHED
+          <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-widest">
+            Order Authorised &amp; Confirmed
           </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">
             Order #{orderId} Successfully Placed!
           </h1>
-          <p className="text-sm text-slate-400 max-w-lg mx-auto">
-            Your quantum cybernetic hardware components are currently undergoing sub-atomic verification and express orbital transit.
+          <p className="text-sm text-slate-500 max-w-lg mx-auto">
+            Thank you for shopping with GlobalMart. Your items are being packed and will be delivered via Express Courier.
           </p>
         </div>
 
         {/* Real-time Order Tracking Status Progress */}
-        <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-4 max-w-xl mx-auto font-mono text-xs text-left">
-          <div className="flex items-center justify-between text-slate-300 font-bold border-b border-slate-800 pb-3">
-            <span>REAL-TIME COURIER STATUS</span>
-            <span className="text-cyan-400">EST. ARRIVAL: &lt; 24 HOURS</span>
+        <div className="p-6 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 space-y-4 max-w-xl mx-auto text-xs text-left">
+          <div className="flex items-center justify-between text-slate-900 dark:text-white font-bold border-b border-slate-200 dark:border-slate-800 pb-3">
+            <span>COURIER DELIVERY STATUS</span>
+            <span className="text-blue-600 dark:text-blue-400">EST. ARRIVAL: BY TOMORROW</span>
           </div>
 
           <div className="space-y-3">
-            <div className="flex items-center space-x-3 text-emerald-400">
+            <div className="flex items-center space-x-3 text-emerald-600 dark:text-emerald-400 font-semibold">
               <CheckCircle2 className="w-4 h-4" />
-              <span>Order Received &amp; Verified</span>
+              <span>Order Received &amp; Payment Verified ({paymentMethod?.toUpperCase() || 'CARD'})</span>
             </div>
-            <div className="flex items-center space-x-3 text-cyan-400">
+            <div className="flex items-center space-x-3 text-blue-600 dark:text-blue-400 font-semibold">
               <Zap className="w-4 h-4 animate-pulse" />
-              <span>Neural Assembly &amp; Sub-Atomic Calibration (Active)</span>
+              <span>Warehouse Packing &amp; Quality Check (Active)</span>
             </div>
-            <div className="flex items-center space-x-3 text-slate-500">
+            <div className="flex items-center space-x-3 text-slate-400">
               <Truck className="w-4 h-4" />
-              <span>Express Orbital Courier Transit</span>
+              <span>Express Delivery Dispatch</span>
             </div>
-            <div className="flex items-center space-x-3 text-slate-500">
+            <div className="flex items-center space-x-3 text-slate-400">
               <PackageCheck className="w-4 h-4" />
-              <span>Final Delivery to {details?.city || 'Destination'}</span>
+              <span>Doorstep Delivery to {details?.fullName || details?.city || 'Destination'}</span>
             </div>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap justify-center gap-4 pt-4">
+        <div className="flex flex-wrap justify-center gap-4 pt-2">
           <Link
             to="/catalog"
-            className="px-6 py-3.5 rounded-xl bg-cyan-500 text-slate-950 font-bold font-mono text-xs flex items-center space-x-2 hover:bg-cyan-400 transition-all shadow-[0_0_20px_rgba(0,240,255,0.3)]"
+            className="px-6 py-3.5 rounded-lg bg-blue-600 text-white font-bold text-xs flex items-center space-x-2 hover:bg-blue-700 shadow-sm"
           >
-            <span>CONTINUE SHOPPING 5K CATALOG</span>
+            <span>CONTINUE SHOPPING</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             to="/"
-            className="px-6 py-3.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-200 font-mono font-bold text-xs hover:border-slate-500 transition-all"
+            className="px-6 py-3.5 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-white font-bold text-xs hover:bg-slate-300"
           >
             RETURN HOME
           </Link>

@@ -10,16 +10,16 @@ export const Wishlist = () => {
   if (wishlistCount === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-20 text-center space-y-6">
-        <div className="w-20 h-20 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mx-auto text-slate-600">
+        <div className="w-20 h-20 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mx-auto text-slate-400">
           <Heart className="w-10 h-10" />
         </div>
-        <h2 className="text-3xl font-bold text-white">Your Saved Wishlist is Empty</h2>
-        <p className="text-sm text-slate-400 max-w-md mx-auto">
-          Save your favorite quantum cybernetic enhancements while exploring the 5,000 product catalog.
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Your Wishlist is Empty</h2>
+        <p className="text-sm text-slate-500 max-w-md mx-auto">
+          Save items you love to your wishlist while exploring our 5,000 product catalog.
         </p>
         <Link
           to="/catalog"
-          className="inline-flex items-center space-x-2 px-6 py-3 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs hover:bg-cyan-400 transition-all shadow-[0_0_15px_rgba(0,240,255,0.3)]"
+          className="inline-flex items-center space-x-2 px-6 py-3 rounded-lg bg-blue-600 text-white font-bold text-xs hover:bg-blue-700 shadow-sm"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Browse 5K Catalog</span>
@@ -29,22 +29,19 @@ export const Wishlist = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      <div className="flex items-center justify-between border-b border-slate-800 pb-6">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700 pb-4">
         <div>
-          <div className="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">
-            // SAVED HARDWARE VAULT
-          </div>
-          <h1 className="text-3xl font-extrabold text-white tracking-tight">
-            Saved Wishlist ({wishlistCount} Items)
+          <h1 className="text-2xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+            My Wishlist ({wishlistCount} Saved Items)
           </h1>
         </div>
         <Link
           to="/catalog"
-          className="text-xs font-mono text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+          className="text-xs text-blue-600 font-semibold hover:underline flex items-center gap-1"
         >
           <Layers className="w-4 h-4" />
-          <span>Back to Catalog</span>
+          <span>Explore Catalog</span>
         </Link>
       </div>
 

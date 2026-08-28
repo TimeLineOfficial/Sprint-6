@@ -1,61 +1,59 @@
-// Product Data Generator for 5,000 Cybernetic & Quantum Products
-// Designed for Phase 3 DOM Virtualization
+// Professional E-Commerce Product Data Generator (5,000 Products)
+// Designed for Flipkart / Alibaba style marketplace
 
 const CATEGORIES = [
-  { id: 'neural', name: 'Neural Implants', icon: 'BrainCircuit' },
-  { id: 'quantum', name: 'Quantum Wearables', icon: 'Atom' },
-  { id: 'bionics', name: 'Cyber Bionics', icon: 'Zap' },
-  { id: 'holo', name: 'Holographic Displays', icon: 'Eye' },
-  { id: 'drones', name: 'Autonomous Drones', icon: 'Bot' },
-  { id: 'haptics', name: 'Haptic Suits', icon: 'ShieldAlert' }
+  { id: 'electronics', name: 'Mobiles & Electronics', icon: 'Smartphone' },
+  { id: 'computing', name: 'Laptops & Computers', icon: 'Laptop' },
+  { id: 'appliances', name: 'Home Appliances', icon: 'Tv' },
+  { id: 'fashion', name: 'Fashion & Wearables', icon: 'Shirt' },
+  { id: 'audio', name: 'Audio & Headphones', icon: 'Headphones' },
+  { id: 'sports', name: 'Sports & Fitness', icon: 'Activity' }
 ];
 
 const CATEGORY_IMAGES = {
-  neural: [
-    "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=600&q=80"
+  electronics: [
+    "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1546054454-aa26e2b734c7?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1565849904461-04a58ad377e0?auto=format&fit=crop&w=600&q=80"
   ],
-  quantum: [
-    "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=600&q=80"
+  computing: [
+    "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?auto=format&fit=crop&w=600&q=80"
   ],
-  bionics: [
-    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80"
+  appliances: [
+    "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?auto=format&fit=crop&w=600&q=80"
   ],
-  holo: [
-    "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=600&q=80"
+  fashion: [
+    "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=600&q=80"
   ],
-  drones: [
-    "https://images.unsplash.com/photo-1527977966376-1c8408f9f108?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1506947411487-a56738267384?auto=format&fit=crop&w=600&q=80"
+  audio: [
+    "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80"
   ],
-  haptics: [
-    "https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1622979135225-d2ba269bc1bd?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1593508512255-86ab42a8e620?auto=format&fit=crop&w=600&q=80",
-    "https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?auto=format&fit=crop&w=600&q=80"
+  sports: [
+    "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1576678927484-cc909957088c?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=600&q=80",
+    "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=600&q=80"
   ]
 };
 
-const PREFIXES = ["Aether", "Chronos", "Hyperion", "Nexus", "VORTEX", "Synapse", "Quantum", "Cyber", "Titan", "Spectra", "Omega", "Neural", "Apex", "Zero-G", "Helix"];
-const NAMES = ["Link Core", "Processor", "Visual Visor", "Reflex Matrix", "Exo-Spine", "Orb Sentinel", "Feedback Suit", "Pulse Vector", "Lattice Deck", "Chrono Band", "Aura Armor", "Optic Array"];
-const SUFFIXES = ["X-1", "Pro Max", "Ultra Quantum", "MK-VII", "Overclock", "Genesis", "Infinity", "V2.0", "Prime Edition", "Cyber-Spec"];
+const BRANDS = ["Samsung", "Sony", "Apple", "Dell", "LG", "HP", "Lenovo", "Asus", "Bose", "Nike", "Adidas", "Panasonic", "Xiaomi", "OnePlus", "Philips"];
+const PRODUCT_NAMES = ["Ultra Smartphone", "Pro Gaming Laptop", "Smart LED 4K TV", "Noise Cancelling Headphones", "Fitness Smartwatch", "Wireless Earbuds", "Ultra-Slim Tablet", "Home Air Purifier", "Ergonomic Office Chair", "High-Speed Router"];
 
-const BADGES = ["NEW", "BESTSELLER", "QUANTUM TIER", "LIMITED EDITION", "PRO TIER", null, null, null];
+const BADGES = ["Bestseller", "Top Choice", "Super Deal", "25% OFF", "Limited Offer", null, null];
 
-// Generate deterministic 5,000 items cached in memory
 let cachedProducts = null;
 
 export const generateProducts = (count = 5000) => {
@@ -64,37 +62,36 @@ export const generateProducts = (count = 5000) => {
   }
 
   const products = [];
-  
+
   for (let i = 1; i <= count; i++) {
     const categoryObj = CATEGORIES[(i - 1) % CATEGORIES.length];
-    const catId = categoryObj.id;
-    const catName = categoryObj.name;
+    const brand = BRANDS[(i * 7) % BRANDS.length];
+    const coreName = PRODUCT_NAMES[(i * 13) % PRODUCT_NAMES.length];
+    const fullName = `${brand} ${coreName} Series-${i}`;
 
-    const prefix = PREFIXES[(i * 7) % PREFIXES.length];
-    const nameCore = NAMES[(i * 13) % NAMES.length];
-    const suffix = SUFFIXES[(i * 19) % SUFFIXES.length];
-    const fullName = `${prefix} ${nameCore} ${suffix} #${i.toString().padStart(4, '0')}`;
+    const price = Math.round(((i * 19.3) % 1950 + 29) * 100) / 100;
+    const discountPct = Math.floor((i % 4) * 10 + 15); // 15% to 45% discount
+    const originalPrice = Math.round((price * (1 + discountPct / 100)) * 100) / 100;
+    const rating = Math.round(((i * 3.7) % 0.8 + 4.1) * 10) / 10;
+    const reviewCount = (i * 37) % 3400 + 45;
 
-    const price = Math.round(((i * 17.53) % 4950 + 49) * 100) / 100;
-    const rating = Math.round(((i * 3.7) % 1.0 + 4.0) * 10) / 10;
-    const reviewCount = (i * 29) % 1450 + 12;
-
-    const images = CATEGORY_IMAGES[catId];
+    const images = CATEGORY_IMAGES[categoryObj.id];
     const image = images[i % images.length];
-
     const badge = BADGES[i % BADGES.length];
-    const inStock = i % 17 !== 0;
-    const stockQuantity = inStock ? (i % 85) + 5 : 0;
-    const isFeatured = i <= 24 || i % 100 === 0;
+    const inStock = i % 19 !== 0;
+    const stockQuantity = inStock ? (i % 90) + 10 : 0;
+    const isFeatured = i <= 24 || i % 80 === 0;
 
     products.push({
       id: `PROD-${i.toString().padStart(4, '0')}`,
       numId: i,
       name: fullName,
-      category: catName,
-      categoryId: catId,
+      brand: brand,
+      category: categoryObj.name,
+      categoryId: categoryObj.id,
       price: price,
-      originalPrice: Math.round(price * 1.25 * 100) / 100,
+      originalPrice: originalPrice,
+      discountPct: discountPct,
       rating: rating,
       reviewCount: reviewCount,
       image: image,
@@ -102,16 +99,18 @@ export const generateProducts = (count = 5000) => {
       stockQuantity: stockQuantity,
       badge: badge,
       isFeatured: isFeatured,
-      description: `Engineered for next-generation cybernetic augmentation. The ${fullName} integrates real-time sub-atomic processing, zero-latency neural bridging, and military-grade encryption.`,
+      isAssured: i % 3 === 0, // Flipkart Assured style badge
+      freeDelivery: i % 2 === 0,
+      description: `Official ${brand} guaranteed product. Packed with high-end performance features, durable build quality, energy efficiency, and full manufacturer warranty.`,
       specs: {
-        architecture: `${prefix}-Quantum v${(i % 5) + 1}.0`,
-        frequency: `${((i % 8) + 1) * 2.4} GHz`,
-        latency: `< ${(i % 3) + 0.2} ms`,
-        powerCell: `${(i % 12) + 12}h Solid-State Battery`,
-        chassis: i % 2 === 0 ? "Carbon-Nanotube Weave" : "Aerospace Titanium Alloy",
-        warranty: `${(i % 3) + 1} Years Global CyberCare`
+        brand: brand,
+        model: `MK-${i}`,
+        warranty: `${(i % 3) + 1} Year Official Brand Warranty`,
+        delivery: i % 2 === 0 ? "Free Express 24h Delivery" : "Standard 2-3 Days",
+        seller: "Global Direct Certified Retailer",
+        rating: `${rating} / 5.0 (${reviewCount} Reviews)`
       },
-      tags: [catName, prefix, "Cyberpunk", "Quantum-Tech"]
+      tags: [categoryObj.name, brand, "Featured"]
     });
   }
 
