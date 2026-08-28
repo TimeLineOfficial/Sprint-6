@@ -2,31 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme Color Variables */
+:root {
+  --bg-primary: #0a0d14;
+  --bg-card: rgba(18, 24, 36, 0.85);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent-primary: #00f0ff;
+  --accent-glow: rgba(0, 240, 255, 0.25);
+  --border-color: rgba(30, 41, 59, 0.8);
+}
+
+.theme-matrix {
+  --bg-primary: #05140b;
+  --bg-card: rgba(10, 30, 18, 0.85);
+  --text-primary: #ecfdf5;
+  --text-secondary: #6ee7b7;
+  --accent-primary: #00ff88;
+  --accent-glow: rgba(0, 255, 136, 0.25);
+  --border-color: rgba(16, 185, 129, 0.2);
+}
+
+.theme-solar {
+  --bg-primary: #f8fafc;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --accent-primary: #0284c7;
+  --accent-glow: rgba(2, 132, 199, 0.15);
+  --border-color: rgba(226, 232, 240, 0.9);
+}
+
 @layer utilities {
   .glass-card {
-    background: rgba(18, 24, 36, 0.75);
+    background: var(--bg-card);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border-color);
   }
   
   .glass-nav {
-    background: rgba(10, 13, 20, 0.85);
+    background: var(--bg-card);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+    border-bottom: 1px solid var(--border-color);
   }
   
   .neon-border-cyan {
-    box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
-  }
-  
-  .neon-border-pink {
-    box-shadow: 0 0 15px rgba(255, 0, 127, 0.25);
+    box-shadow: 0 0 15px var(--accent-glow);
   }
 
   .text-glow-cyan {
-    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    text-shadow: 0 0 10px var(--accent-glow);
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -34,18 +61,23 @@
     height: 6px;
   }
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #0a0d14;
+    background: var(--bg-primary);
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background: #1e293b;
     border-radius: 3px;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: #00f0ff;
+    background: var(--accent-primary);
   }
 }
 
-/* Smooth scrollbar styling */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
 html {
   scroll-behavior: smooth;
 }

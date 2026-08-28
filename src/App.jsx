@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 import { ToastProvider } from './context/ToastContext';
 import { CartProvider } from './context/CartContext';
 import { WishlistProvider } from './context/WishlistContext';
@@ -28,33 +29,35 @@ const ScrollToTop = () => {
 
 export default function App() {
   return (
-    <ToastProvider>
-      <CartProvider>
-        <WishlistProvider>
-          <FilterProvider>
-            <HashRouter>
-              <ScrollToTop />
-              <div className="min-h-screen flex flex-col bg-[#0a0d14] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200">
-                <Navbar />
-                <main className="flex-1">
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/catalog" element={<Catalog />} />
-                    <Route path="/product/:id" element={<ProductDetail />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/checkout" element={<Checkout />} />
-                    <Route path="/wishlist" element={<Wishlist />} />
-                    <Route path="/order-success" element={<OrderSuccess />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </main>
-                <Footer />
-                <ToastContainer />
-              </div>
-            </HashRouter>
-          </FilterProvider>
-        </WishlistProvider>
-      </CartProvider>
-    </ToastProvider>
+    <ThemeProvider>
+      <ToastProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <FilterProvider>
+              <HashRouter>
+                <ScrollToTop />
+                <div className="min-h-screen flex flex-col transition-colors duration-300">
+                  <Navbar />
+                  <main className="flex-1">
+                    <Routes>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/catalog" element={<Catalog />} />
+                      <Route path="/product/:id" element={<ProductDetail />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/checkout" element={<Checkout />} />
+                      <Route path="/wishlist" element={<Wishlist />} />
+                      <Route path="/order-success" element={<OrderSuccess />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Routes>
+                  </main>
+                  <Footer />
+                  <ToastContainer />
+                </div>
+              </HashRouter>
+            </FilterProvider>
+          </WishlistProvider>
+        </CartProvider>
+      </ToastProvider>
+    </ThemeProvider>
   );
 }
