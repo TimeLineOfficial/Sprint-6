@@ -17,12 +17,14 @@ export const ThemeProvider = ({ children }) => {
     try {
       localStorage.setItem(THEME_STORAGE_KEY, theme);
       const root = document.documentElement;
-      root.classList.remove('dark', 'solar', 'theme-cyberpunk', 'theme-matrix', 'theme-solar');
+      root.classList.remove('dark', 'solar', 'light');
 
       if (theme === 'dark') {
         root.classList.add('dark');
       } else if (theme === 'solar') {
-        root.classList.add('dark', 'solar', 'theme-solar');
+        root.classList.add('dark', 'solar');
+      } else {
+        root.classList.add('light');
       }
     } catch (e) {
       console.error("Theme storage update failed", e);

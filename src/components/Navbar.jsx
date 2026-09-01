@@ -79,7 +79,7 @@ export const Navbar = () => {
 
         {/* Primary Header Bar */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 gap-3">
+          <div className="flex items-center justify-between h-16 gap-2 sm:gap-3">
             {/* Brand Logo */}
             <Link to="/" className="flex items-center space-x-2 group flex-shrink-0">
               <div className="w-9 h-9 rounded-lg bg-amber-400 text-slate-900 font-extrabold text-xl flex items-center justify-center shadow-md">
@@ -95,29 +95,30 @@ export const Navbar = () => {
               </div>
             </Link>
 
-            {/* Delivery Location Pincode Selector Button */}
+            {/* Delivery Location Pincode Selector Button (Visible on ALL viewports) */}
             <button
               type="button"
               onClick={() => setIsLocationModalOpen(true)}
-              className="hidden lg:flex items-center space-x-1.5 text-xs text-blue-100 bg-blue-800/80 dark:bg-slate-800 px-3 py-1.5 rounded-lg border border-blue-600 dark:border-slate-700 hover:bg-blue-600 transition-all text-left"
+              className="flex items-center space-x-1.5 text-xs text-blue-100 bg-blue-800/90 hover:bg-blue-600 dark:bg-slate-800 px-2.5 py-1.5 rounded-lg border border-blue-500 dark:border-slate-700 transition-all text-left flex-shrink-0 cursor-pointer"
               title="Click to Change Delivery Location"
             >
               <MapPin className="w-4 h-4 text-amber-400 flex-shrink-0" />
-              <div>
-                <div className="text-[10px] text-blue-200">Deliver to</div>
-                <div className="font-bold text-white leading-none truncate max-w-[120px]">
+              <div className="hidden sm:block">
+                <div className="text-[9px] text-blue-200 uppercase font-bold leading-tight">Deliver to</div>
+                <div className="font-bold text-white text-xs leading-none truncate max-w-[100px]">
                   {location.city} {location.pincode}
                 </div>
               </div>
+              <span className="sm:hidden font-bold text-white text-xs">{location.pincode || 'City'}</span>
             </button>
 
             {/* Desktop Search Bar */}
-            <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center relative max-w-xl w-full">
+            <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center relative max-w-md w-full">
               <input
                 type="text"
                 value={navSearch}
                 onChange={(e) => setNavSearch(e.target.value)}
-                placeholder="Search for products, AC repair, home cook, laptop fix..."
+                placeholder="Search products, AC repair, cook, laptop fix..."
                 className="w-full bg-white text-slate-900 rounded-lg pl-4 pr-10 py-2.5 text-xs placeholder-slate-400 focus:outline-none shadow-inner"
               />
               <button
@@ -130,46 +131,47 @@ export const Navbar = () => {
             </form>
 
             {/* Right Action Icons */}
-            <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="flex items-center space-x-1.5 sm:space-x-2.5">
               {/* Mobile Quick Search Button */}
               <button
                 onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
                 className="md:hidden p-2 rounded-lg bg-blue-800 dark:bg-slate-800 text-white hover:bg-blue-600"
                 aria-label="Toggle Quick Search"
               >
-                <Search className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Search className="w-4 h-4" />
               </button>
 
-              {/* Theme Switcher Toggle Button */}
+              {/* Theme Switcher Toggle Button (Visible & Interactive on ALL viewports) */}
               <button
+                type="button"
                 onClick={cycleTheme}
-                className="p-2 rounded-lg bg-blue-800 dark:bg-slate-800 text-white hover:bg-blue-600 transition-all flex items-center space-x-1 text-xs font-semibold"
+                className="p-2 px-2.5 rounded-lg bg-blue-800 hover:bg-blue-600 dark:bg-slate-800 text-white transition-all flex items-center space-x-1 text-xs font-bold cursor-pointer border border-blue-500/50 dark:border-slate-700"
                 title={`Current Theme: ${theme.toUpperCase()}. Click to switch between Light, Dark, and Solar.`}
                 aria-label="Switch Theme"
               >
                 {theme === 'solar' ? (
-                  <Sun className="w-4 h-4 text-amber-400" />
+                  <Sun className="w-4 h-4 text-amber-400 animate-spin-slow" />
                 ) : theme === 'dark' ? (
                   <Moon className="w-4 h-4 text-amber-300" />
                 ) : (
-                  <Sun className="w-4 h-4 text-blue-200" />
+                  <Sun className="w-4 h-4 text-amber-300" />
                 )}
-                <span className="hidden sm:inline uppercase text-[10px]">{theme}</span>
+                <span className="uppercase text-[10px] tracking-wider">{theme}</span>
               </button>
 
               {/* Hire Workers Quick Action */}
               <Link
                 to="/hire-workers"
-                className="hidden sm:flex items-center space-x-1 p-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-sm"
+                className="hidden lg:flex items-center space-x-1 p-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-sm"
               >
                 <Users className="w-4 h-4" />
-                <span>Hire Workers</span>
+                <span>Hire Staff</span>
               </Link>
 
               {/* Gadget Repair Quick Action */}
               <Link
                 to="/repair-services"
-                className="hidden sm:flex items-center space-x-1 p-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-sm"
+                className="hidden lg:flex items-center space-x-1 p-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all shadow-sm"
               >
                 <Wrench className="w-4 h-4" />
                 <span>Repair</span>
@@ -180,8 +182,7 @@ export const Navbar = () => {
                 to="/wishlist"
                 className="relative p-2 rounded-lg bg-blue-800 dark:bg-slate-800 text-white hover:bg-blue-600 transition-all flex items-center space-x-1 text-xs font-semibold"
               >
-                <Heart className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="hidden lg:inline">Wishlist</span>
+                <Heart className="w-4 h-4" />
                 {wishlistCount > 0 && (
                   <span className="w-4 h-4 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center">
                     {wishlistCount}
@@ -192,12 +193,12 @@ export const Navbar = () => {
               {/* Cart Button */}
               <button
                 onClick={() => setIsCartOpen(true)}
-                className="relative px-3 py-2 rounded-lg bg-amber-400 text-slate-950 font-bold hover:bg-amber-300 transition-all flex items-center space-x-1.5 text-xs shadow-sm"
+                className="relative px-2.5 py-2 rounded-lg bg-amber-400 text-slate-950 font-bold hover:bg-amber-300 transition-all flex items-center space-x-1 text-xs shadow-sm cursor-pointer"
               >
-                <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
+                <ShoppingCart className="w-4 h-4" />
                 <span className="hidden sm:inline">Cart</span>
                 {totalItemsCount > 0 && (
-                  <span className="w-5 h-5 rounded-full bg-blue-900 text-white text-[10px] font-extrabold flex items-center justify-center ml-0.5">
+                  <span className="w-4 h-4 rounded-full bg-blue-900 text-white text-[10px] font-extrabold flex items-center justify-center ml-0.5">
                     {totalItemsCount}
                   </span>
                 )}
@@ -279,6 +280,17 @@ export const Navbar = () => {
         {/* Mobile Navigation Dropdown Menu */}
         {isMobileMenuOpen && (
           <div className="lg:hidden bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border-b border-slate-200 dark:border-slate-800 px-4 py-4 space-y-3 text-xs font-semibold">
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsLocationModalOpen(true);
+              }}
+              className="w-full p-2.5 bg-slate-100 dark:bg-slate-800 rounded-lg text-left font-bold flex items-center justify-between text-blue-600 dark:text-blue-400"
+            >
+              <span className="flex items-center gap-2"><MapPin className="w-4 h-4 text-amber-500" /> Deliver to: {location.city} ({location.pincode})</span>
+              <span className="text-[10px] uppercase underline">Change</span>
+            </button>
+
             <div className="flex gap-2">
               <Link
                 to="/hire-workers"
